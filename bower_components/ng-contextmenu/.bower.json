@@ -1,0 +1,32 @@
+{
+  "name": "ng-contextmenu",
+  "version": "0.7.3",
+  "homepage": "https://github.com/Wildhoney/ngContextMenu",
+  "authors": [
+    "Adam Timberlake <adam.timberlake@gmail.com>"
+  ],
+  "description": "Handcraft your very own context menus for a richer UX!",
+  "main": "dist/ng-contextmenu.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": ">=1.3.0",
+    "angular-mocks": ">=1.3.0"
+  },
+  "_release": "0.7.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.7.3",
+    "commit": "68333cc0acdbff2b05e1aec271c6adf6e2c0226b"
+  },
+  "_source": "https://github.com/Wildhoney/ngContextMenu.git",
+  "_target": "^0.7.3",
+  "_originalSource": "ng-contextmenu",
+  "_direct": true
+}

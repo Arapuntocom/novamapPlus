@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>NovaMap+</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.min.css"  type="text/css"/>
+	<!--<link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+	<link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">-->
+	<link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
+	
+	<link rel="stylesheet" href="app.css">
+	<link rel="stylesheet" href="bower_components/jointjs/dist/joint.css" type="text/css"/>
+	<!--<script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>-->
+</head>
+<header>
+	<div >
+		<md-toolbar>
+			<div class="md-toolbar-tools">				
+				<h2>
+					<span ui-sref="inicio">NovaMap+</span>
+				</h2>
+				<span flex></span>
+				<md-button aria-label="nmvp-settings">
+					<md-icon md-svg-icon="img/icons/other-icons/ic_settings_black_48px.svg"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+	</div>	
+</header>
+<body>
+
+  <!--[if lt IE 7]>
+	  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+	
+	<!--<div ng-view="home"></div>-->
+	<div class="container">
+	    <div class="row">
+	   		<ui-view></ui-view>      
+	    </div>
+    </div>
+
+  	
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+	  -->
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-route/angular-route.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+	<script src="bower_components/angular-aria/angular-aria.js"></script>
+	<script src="bower_components/angular-animate/angular-animate.js"></script>
+	<script src="bower_components/angular-material/angular-material.js"></script>
+
+	<script src="app.js"></script>
+	<script src="view/header/header-controller.js"></script>
+	<script src="view/draw/draw-controller.js"></script>
+	<script src="view/dibujo/dibujo-controller.js"></script>
+	<!--<script type="text/javascript" src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>-->
+	<script src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
+	
+
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="bower_components/lodash/dist/lodash.js"></script>	
+	<script type="text/javascript" src="bower_components/backbone/backbone.js"></script>
+	<script type="text/javascript" src="bower_components/jointjs/dist/joint.js"></script>
+	
+	<script type="text/javascript" src="bower_components/ng-contextmenu/module/ngContextMenu.js"></script>
+
+
+
+</body>
+
+<!--<footer>
+	<p>footer</p>
+</footer>-->
+
+</html>
