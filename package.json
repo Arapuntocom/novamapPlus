@@ -2,18 +2,11 @@
   "name": "novamapplus",
   "version": "1.0.0",
   "main": "index.html",
-  // "devDependencies": {
-  	
-  //   "http-server": "^0.9.0"
-  // },
-   "dependencies": {
-   		"node":"latest",
-  		"bower": "latest",
-   },
+  "dependencies": {
+  	"node":"latest",
+  	"bower": "latest",
+  },
   "scripts": {
-  	//"postinstall": "bower install",
-  	//"prestart": "npm install",
-    //"start": "http-server -a localhost -p 8000 -c-1 ./app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
