@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "main": "index.html",
   "dependencies": {
-  	"node":"latest",
   	"bower": "latest"
   },
   "scripts": {
-    "start": "http-server -a localhost -p 8000 -c-1 ./app",
+  	"postinstall": "bower install",
+    "start": "./app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
