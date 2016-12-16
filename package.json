@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.html",
   "devDependencies": {
-  	"bower": "^1.7.7",
+  	"node":"latest",
+  	"bower": "latest",
     "http-server": "^0.9.0"
   },
   "scripts": {
