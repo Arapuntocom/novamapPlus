@@ -1,7 +1,7 @@
 {
   "name": "novamapplus",
   "version": "1.0.0",
-  "main": "index.html",
+  "main": "myApp",
   "dependencies": {
   	"bower": "latest"
   },
