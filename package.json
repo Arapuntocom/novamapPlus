@@ -1,25 +1,21 @@
 {
   "name": "novamapplus",
   "version": "1.0.0",
-  "main": "myApp",
-  "dependencies": {
-  	"bower": "latest"
-  },
+  "description": "",
+  "main": "app.js",
   "scripts": {
+  	"start": "node ./bin/www",
   	"postinstall": "bower install",
-  	"prestart": "npm install",
-    "start": "node ./bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Arapuntocom/novamapPlus.git"
   },
-  "author": "Aracelly Altamirano",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Arapuntocom/novamapPlus/issues"
   },
-  "homepage": "https://github.com/Arapuntocom/novamapPlus#readme",
-  "description": ""
+  "homepage": "https://github.com/Arapuntocom/novamapPlus#readme"
 }
