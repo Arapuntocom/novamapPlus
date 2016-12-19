@@ -1,14 +1,14 @@
 {
   "name": "novamapplus",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "myApp",
   "dependencies": {
   	"bower": "latest"
   },
   "scripts": {
   	"postinstall": "bower install",
   	"prestart": "npm install",
-    "start": "node server.js",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
