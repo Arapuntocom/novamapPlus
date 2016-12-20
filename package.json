@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "aplicación web para el dibujo de mapas conversacionales",
   "main": "app.js",
-  "dependencies": {},
+  "dependencies": {
+  	"bower":"latest"
+  },
   "devDependencies": {},
   "scripts": {
   	"start": "node index.js",
