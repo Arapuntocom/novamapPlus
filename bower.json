@@ -1,0 +1,23 @@
+{
+  "name": "novamapplus",
+  "description": "aplicación web para el dibujo de mapas conversacionales",
+  "main": "app.js",
+  "license": "ISC",
+  "homepage": "https://github.com/Arapuntocom/novamapPlus",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-material": "^1.1.1",
+    "angular-route": "^1.6.0",
+    "angular-ui-router": "^0.3.2",
+    "backbone": "^1.3.3",
+    "jquery": "^3.1.1",
+    "lodash": "^4.17.2",
+    "ng-contextmenu": "^0.7.5"
+  }
+}
