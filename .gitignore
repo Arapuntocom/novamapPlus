@@ -1,8 +1,10 @@
 # ignorar los archivos que coincidan con los siguientes patrones 
-
 ~* 
 *.so 
 *.log
+
+#ignorar los directorios siguientes
+node_modules/
 
 #ignorar el siguiente archivo
 package.json
