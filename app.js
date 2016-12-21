@@ -7,7 +7,6 @@ angular.module('myApp', [
   'header',
   'draw',
   'draw.tree',
-  'myApp.version',
   'dibujo'
 ])
 
