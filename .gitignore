@@ -5,4 +5,3 @@
 *.log
 
 #ignorar el siguiente archivo
-package.json
