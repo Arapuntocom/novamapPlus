@@ -3,8 +3,9 @@
 *.so 
 *.log
 
-#ignorar los directorios siguientes
-node_modules/
-
 #ignorar el siguiente archivo
 package.json
+
+#ignorar los directorios siguientes
+node_modules/
+bower_components/
