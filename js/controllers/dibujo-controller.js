@@ -1025,7 +1025,7 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 		}		
 	}
 
-var vm = this;
+	var vm = this;
 
 	$rootScope.alerta = function(){
 		alert("enviada por-> ");
@@ -1098,10 +1098,6 @@ var vm = this;
 
 
 	paper.on('cell:contextmenu', function(cellView, evt, x, y) { 
-		// $(document).on('contextmenu', function (evt) {
-		// 	return false;
-		// })
-
 		$log.debug('cell:contextmenu cellView.id-> '+cellView.id);	   
 
 		var type = cellView.className();
@@ -1129,18 +1125,7 @@ var vm = this;
 		}
 	})
 	
-
-	/*
-	$scope.openAsPNG = function() {
-
-            this.paper.toPNG(function(dataURL) {
-                new joint.ui.Lightbox({
-                    title: '(Right-click, and use "Save As" to save the diagram in PNG format)',
-                    image: dataURL
-                }).open();
-            }, { padding: 10 });
-        }
-	*/
+	/* Actualiza el json del modelo*/
 	graph.on('all',function(eventName, cell){
 		$('#json-renderer').jsonViewer(graph.toJSON());
 	})
