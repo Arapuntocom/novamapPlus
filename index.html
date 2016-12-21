@@ -11,14 +11,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<link href="bower_components/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css"/>
-	<link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
-	<link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+	<!--<link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+	<link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">-->
 	<link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
 	
 	<link rel="stylesheet" href="app.css">
 	<!--<link rel="stylesheet" type="text/css" href="joint_0.9.6/joint.css" />-->
 	<link rel="stylesheet" type="text/css" href="joint_1.0.3/joint.css" />
-	<script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+	<!--<script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>-->
 
 	<link rel="stylesheet" href="jsonViewer/jquery.json-viewer.css">
 </head>
@@ -43,41 +43,45 @@
 	  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
-	<!--<div>Angular seed app: v<span app-version></span></div>-->
-	
 	<!--<div ng-view="home"></div>-->
+	<!--<a  ui-sref="home" >home</a>-->
 	<div class="container">
 	    <div class="row">
 	   		<ui-view></ui-view>      
 	    </div>
-    </div>
-
-
-
-
-	
-	<!--<a  ui-sref="home" >home</a>-->
+    </div>	
 
   	
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
 	  -->
-	<script src="bower_components/angular/angular.js"></script>
-	<script src="bower_components/angular-route/angular-route.js"></script>
-	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-	<script src="bower_components/angular-aria/angular-aria.js"></script>
-	<script src="bower_components/angular-animate/angular-animate.js"></script>
-	<script src="bower_components/angular-material/angular-material.js"></script>
+	<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+	<script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
+	<script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+	<script type="text/javascript" src="bower_components/angular-aria/angular-aria.js"></script>
+	<script type="text/javascript" src="bower_components/angular-animate/angular-animate.js"></script>
+	<script type="text/javascript" src="bower_components/angular-material/angular-material.js"></script>
+	<script type="text/javascript" src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
+	<script type="text/javascript" src="bower_components/ng-contextmenu/module/ngContextMenu.js"></script>
+
+	<script type="text/javascript" src="bower_components/backbone/backbone-min.js"></script>
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="bower_components/lodash/dist/lodash.min.js"></script>
+	<script type="text/javascript" src="joint_1.0.3/joint.js"></script>
+
+	<script type="text/javascript" src="jsonViewer/jquery.json-viewer.js"></script>
+
 	<script src="app.js"></script>
+
 	<script src="js/controllers/header-controller.js"></script>
 	<script src="js/controllers/draw-controller.js"></script>
 	<script src="js/controllers/tree-controller.js"></script>
 	<script src="js/controllers/dibujo-controller.js"></script>
-	<script src="components/version/version.js"></script>
+
+	<!--<script src="components/version/version.js"></script>
 	<script src="components/version/version-directive.js"></script>
-	<script src="components/version/interpolate-filter.js"></script>
-	<!--<script type="text/javascript" src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>-->
-	<script src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
+	<script src="components/version/interpolate-filter.js"></script>-->
+	
 	<!--
 	<script type="text/javascript" src="joint_0.9.6/dependencias/jquery.min.js"></script>
 	<script type="text/javascript" src="joint_0.9.6/dependencias/lodash.min.js"></script>
@@ -87,14 +91,11 @@
 	<script type="text/javascript" src="joint_0.9.6/joint.js"></script>
 	-->
 
-	<script type="text/javascript" src="joint_1.0.3/dependencias/jquery.js"></script>
+	<!--<script type="text/javascript" src="joint_1.0.3/dependencias/jquery.js"></script>
 	<script type="text/javascript" src="joint_1.0.3/dependencias/lodash.js"></script>	
 	<script type="text/javascript" src="joint_1.0.3/dependencias/backbone.js"></script>
-	<script type="text/javascript" src="joint_1.0.3/joint.js"></script>
+	<script type="text/javascript" src="joint_1.0.3/joint.js"></script>-->
 	
-	<script type="text/javascript" src="bower_components/ng-contextmenu/module/ngContextMenu.js"></script>
-
-	<script type="text/javascript" src="jsonViewer/jquery.json-viewer.js"></script>
 
 
 </body>
