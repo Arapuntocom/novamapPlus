@@ -1,0 +1,8 @@
+# ignorar los archivos que coincidan con los siguientes patrones 
+
+~* 
+*.so 
+*.log
+
+#ignorar el siguiente archivo
+package.json
