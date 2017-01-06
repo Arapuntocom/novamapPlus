@@ -194,7 +194,6 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 				break;
 			case 'basic.Or':
 				var bboxThisCell = thisCell.getBBox();
-				var realBBox = bboxThisCell.bbox(45);
 				pointStick = bboxThisCell.pointNearestToPoint(g.point(x,y));
 				pointStick = pointStick.rotate(bboxThisCell.center(),45);
 				pointStick = g.point(pointStick.x - bboxThisCell.x, pointStick.y - bboxThisCell.y);				
@@ -214,12 +213,52 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 		},
 		pointerup: function(evt, x, y){
 			dateCellPointerUp = new Date();			
-			$log.debug("dateCellPointerUp: "+dateCellPointerUp);
-
-			
+			$log.debug("dateCellPointerUp: "+dateCellPointerUp);			
 
 			joint.dia.ElementView.prototype.pointerup.apply(this, [evt, x, y]);
 		},
+
+		// pointermove: function(evt, x, y){
+		// 	if(this.className() == 'cell type-basic type-basic-ellipse element'){
+		// 		var celda = graph.getCell(this.model.id);				
+		// 		var pprevia = celda.previous('position'); //posicion inicial del circulo azul	
+		// 		var pactual = celda.get('position'); // posición actual del circulo azul		
+		// 		$log.debug("x e y   -> "+x+", "+y);
+		// 		$log.debug("pprevia -> "+pprevia.x+", "+pprevia.y);				
+		// 		$log.debug("pactual -> "+pactual.x+", "+pactual.y);	
+
+		// 		var diferencia =  g.point(pactual.x-pprevia.x, pactual.y-pprevia.y);
+		// 		$log.debug("diferencia -> ("+pactual.x+" - "+pprevia.x+", "+pactual.y+" - "+pprevia.y+")= "+diferencia.x+", "+diferencia.y);
+		// 		//$log.debug("diferencia -> "+diferencia.x+", "+diferencia.y);
+		// 		var abs = g.point(0,0);
+		// 		abs.x = diferencia.x < 0 ? -1*diferencia.x : diferencia.x;
+		// 		abs.y = diferencia.y < 0 ? -1*diferencia.y : diferencia.y;					
+		// 		var mayor = abs.x > abs.y ? abs.x : abs.y;
+				
+		// 		var after = g.point(pprevia.x,pprevia.y);
+
+		// 		if(diferencia.x > 0 || diferencia.y < 0){
+		// 			$log.debug("aumenta en "+mayor);
+		// 			after.x = pprevia.x + mayor;
+		// 			after.y = pprevia.y - mayor;
+		// 		}else if(diferencia.x < 0 && diferencia.y > 0){
+		// 			$log.debug("disminuye en "+mayor);
+		// 			after.x = pprevia.x - mayor;
+		// 			after.y = pprevia.y + mayor;
+		// 		}else{
+		// 			$log.debug("nada");
+		// 		}
+				
+		// 		$log.debug("result -> "+after.x+", "+after.y);
+		// 		celda.attr('position', {x: after.x, y:after.y});
+				
+		// 		joint.dia.ElementView.prototype.pointermove.apply(this, [evt, x, y]);
+		// 	}else{
+		// 		$log.debug("mueve elemento != circulo blue (elipse)");
+		// 		joint.dia.ElementView.prototype.pointermove.apply(this, [evt, x, y]);
+		// 	}
+			
+		// }
 
 		// pointermove: function(evt, x, y){ 	
 		// 	//$log.debug('cellView.isLink():'+this.model.isLink());
@@ -738,6 +777,7 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 		}		
 		celdaViewPointerClick = null;
 	}
+
 	var cancelarAccionEnCurso = function(){
 		$log.debug("candelar accion en curso");
 		btnAgregarEnlace = false;
@@ -870,10 +910,31 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 		}	
 	});
 
+	var resizeClick = false;
+	paper.on('cell:pointerdown', function(cellView, evt, x, y){
+		if(cellView.className() == 'cell type-basic type-basic-ellipse element'){//se hizo click en blueCircle
+			$log.debug("CLICK on blueCircle");
+			resizeClick = true;
+
+		}else{
+			resizeClick = false;
+		}
+	})
+
+	paper.on('cell:pointerup', function(cellView, evt, x, y){	
+		$log.debug("cell:pointerup ");	
+		resizeClick = false;			
+		custumHighlight(celdaViewPointerClick);
+	})
+
+
+
 	paper.on('cell:pointermove',function(cellView, evt, x, y){
-		$log.debug("cell:pointermove");
-		if(cellView.className() != 'cell type-basic type-basic-ellipse element'){
-			if(celdaViewPointerClick != null){
+		$log.debug("cell:pointermove ");
+		$scope.x = x;
+		$scope.y = y;
+		if(cellView.className() != 'cell type-basic type-basic-ellipse element'){ //si se mueve un elemento
+			if(celdaViewPointerClick != null){ 
 				$log.debug(" apagar celda antes presionada.");
 				//celdaViewPointerClick.unhighlight();		
 				custumUnhighlight(celdaViewPointerClick);
@@ -881,16 +942,53 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 			celdaViewPointerClick = cellView;
 
 			custumHighlight(cellView);
-		}else{
+		}else{ // si se mueve el punto azul para escalar
+			/* mover el punto libremente, si se mueve fuera del bbox aumenta, de lo contrario disminuye. */			
+			custumUnhighlight(celdaViewPointerClick);
+			var celda = graph.getCell(celdaViewPointerClick.model.id); //celda a escalar
+			var size = celda.get('size'); // tamaño original de la celda
+
+			var rect = g.rect(celda.get('position').x-celda.get('size').width/2,celda.get('position').y-celda.get('size').height/2,celda.get('size').width,celda.get('size').height);
 			
-			var elipse = graph.getCell(cellView.model.id); //ellipse
-			var position = elipse.get('position'); //posicion nueva de la ellipse
-			var previous = elipse.previous('position'); //posicion antigua de la ellipse
-			var celda = graph.getCell(celdaViewPointerClick.model.id); //elemento a escalar
-			var size = celda.get('size'); // tamaño original del elemento
-			celda.resize(size.width + position.x- previous.x, size.height + previous.y - position.y);
+			if(celdaViewPointerClick.className() == 'cell type-basic type-basic-or element'){
+				$log.debug("OR");
+				var bbox = celdaViewPointerClick.getBBox().toJSON();
+				$log.debug("json "+bbox.x + bbox.width/2+", "+bbox.y+bbox.height/2+", "+bbox.width+", "+bbox.height);
+				//rect = g.rect(bbox.x + bbox.width/2, bbox.y+bbox.height/2, bbox.width, bbox.height);
+				var element = celda;
+				rect = g.rect(element.get('position').x, element.get('position').y- element.get('size').height/2, element.get('size').width + element.get('size').width/2, element.get('size').height + element.get('size').height/2);
+				
+			}
+
+
+			var p = g.point(x,y);
+			var inside = rect.containsPoint(p); //true if p is inside the rectangle (inclusive).
+
+			var pBbox = rect.pointNearestToPoint(p);
+
+			$log.debug("x y  "+x+", "+y+" near "+pBbox.x+", "+pBbox.y);
+			var dif = g.point(pBbox.x-x > 0 ? pBbox.x-x : x-pBbox.x, pBbox.y-y > 0 ? pBbox.y-y : y-pBbox.y);
+			
+			var mayor = dif.x > dif.y ? dif.x : dif.y;
+			$log.debug("dif  "+dif.x+", "+dif.y+" mayor: "+mayor);
+			if(inside){ //disminuir tamaño
+				celda.resize(celda.get('size').width - mayor, celda.get('size').height - mayor);
+				$log.debug("DISMINUIR");
+			}else{
+				celda.resize(celda.get('size').width + mayor, celda.get('size').height + mayor);
+				$log.debug("AUMENTAR");
+			}
+
+			//celda.resize(size.width + position.x- previous.x, size.height + previous.y - position.y);			
+
+			// if(cellView.className() == 'cell type-basic type-basic-rect element'){
+			// 	celda.resize(size.width + position.x- previous.x, size.height + previous.y - position.y);
+			// }else{
+			// 	celda.resize(size.width + position.x- previous.x, size.height + previous.y - position.y);
+			// }else{}
 		}
 	})
+
 
 	paper.on('cell:mouseover', function(cellView, evt){
 		if(cellView.className() != 'cell type-basic type-basic-ellipse element'){
@@ -914,6 +1012,8 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 
 	paper.on('blank:pointerclick', function(evt, x, y){
 		$log.debug("blank:pointerClick");
+		$scope.x = x;
+		$scope.y = y;
 		if(celdaViewPointerClick != null){
 			$log.debug("blank: apagar celda antes presionada");
 			//celdaViewPointerClick.unhighlight();
@@ -954,7 +1054,9 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 	var addCircleBlue = function(cellView){
 		var element = graph.getCell(cellView.model.id);
 		var position = g.rect(element.get('position').x-element.get('size').width/2, element.get('position').y-element.get('size').height/2, element.get('size').width, element.get('size').height).topRight();
-		$log.debug("position-> "+position);
+		if(element.get('type') =='basic.Or'){ //si el elemento es un OR
+			position = g.rect(element.get('position').x, element.get('position').y- element.get('size').height/2, element.get('size').width + element.get('size').width/2, element.get('size').height + element.get('size').height/2).topRight();
+		}
 		var circulo = new joint.shapes.basic.Ellipse({
 			position: { x: position.x, y: position.y },
         	size: { width: 5, height: 5 },
@@ -963,7 +1065,8 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 		graph.addCell(circulo);
     	$log.debug("circulo agregado");
     	element.embed(circulo);
-    	celdaViewPointerClick = cellView;
+    	$log.debug("circulo embebido");
+    	celdaViewPointerClick = cellView; //mantiene celda a la que se agregó el circulo azul
     }
 
     var removeCircleBlue = function(cellView){
@@ -980,7 +1083,9 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 
 	var custumHighlight = function(cellView){
 		if(cellView){
+			removeCircleBlue(cellView);
 			var tipo = cellView.className();
+
 			switch (tipo){
 				case 'cell type-basic type-basic-cicloconversacional element':					
 					cellView.highlight('ellipse');
@@ -996,7 +1101,7 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 					break;
 			}
 			if(btnAgregarEnlace == false){
-				addCircleBlue(cellView);
+				addCircleBlue(cellView);				
 			}
 		}		
 	}
@@ -1019,9 +1124,9 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 					cellView.unhighlight('path');
 					break;
 			}
-
+			if(resizeClick == false){
 				removeCircleBlue(cellView);
-			
+			}			
 		}		
 	}
 
