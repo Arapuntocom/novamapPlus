@@ -173,19 +173,18 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 				//obtenemos la cordenada más cercana al punto presionado con respecto a la elipse
 				var ellipse = g.ellipse(thisCell.get('position'), 60, 30);
 
-				// joint.util.getElementBBox(el)
+				
 				var view = paper.findViewByModel(thisCell);
 				var bbox = view.getBBox({'useModelGeometry':false});
-				// var viewEllipse = view[2];
-				
-				
-				var ellipse2 = thisCell.get('attrs').ellipse;
+			
+			var ellipse2 = view.ellipse;
 
 				$log.debug("bbox x: "+bbox.x+", y: "+bbox.y+", w: "+bbox.width+", h: "+bbox.height);
-				$log.debug("elli x: "+ellipse2.rx+", y: "+ellipse2.ry);
+				//$log.debug("elli x: "+ellipse2.rx+", y: "+ellipse2.ry);
 				//var ellipse = g.ellipse(thisCell.get('position'), thisCell.get('size').width / 2, thisCell.get('size').height / 2);
 				pointStick = ellipse.intersectionWithLineFromCenterToPoint(g.point(x,y));
-				pointStick= g.point(pointStick.x - thisCell.get('position').x, pointStick.y - thisCell.get('position').y);
+				pointStick = g.point(pointStick.x - thisCell.get('position').x, pointStick.y - thisCell.get('position').y);
+
 				break;
 			case 'basic.And':
 				var circle = g.ellipse(thisCell.get('position'), thisCell.get('size').width / 2, thisCell.get('size').height / 2);
