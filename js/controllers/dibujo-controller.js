@@ -996,7 +996,7 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 					break;
 			}
 			if(btnAgregarEnlace == false){
-				addCircleBlue(cellView);
+			//	addCircleBlue(cellView);
 			}
 		}		
 	}
@@ -1020,7 +1020,7 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 					break;
 			}
 
-				removeCircleBlue(cellView);
+			//	removeCircleBlue(cellView);
 			
 		}		
 	}
