@@ -9,5 +9,3 @@ package.json
 #ignorar los directorios siguientes
 node_modules/
 bower_components/
-npm-debug.log
-npm-debug
