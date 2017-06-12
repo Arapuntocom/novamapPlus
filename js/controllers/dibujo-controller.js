@@ -3,7 +3,6 @@
 angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 'ngContextMenu'])
 
 .controller('DibujoController', function($scope, $timeout, $mdSidenav, $log, $mdDialog, $document, contextMenu, $mdMenu, $rootScope, $compile) {
-	//$log.debug("DibujoController is here!!!");
 	$scope.toggleTree = buildDelayedToggler('tree');
 	$scope.toggleModelo = buildToggler('propertiesNav');
 	$scope.toggleCC = buildToggler('CCNav');
@@ -75,7 +74,6 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 			$mdSidenav(navID)
 			.toggle()
 			.then(function () {
-				//$log.debug("toggle " + navID + " is done");
 			});
 		}, 200);
 	}
@@ -86,7 +84,6 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 			$mdSidenav(navID)
 			.toggle()
 			.then(function () {
-				//$log.debug("toggle " + navID + " is done");
 			});
 		}
 	}
@@ -95,7 +92,6 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 	  // Component lookup should always be available since we are not using `ng-if`
 		$mdSidenav(navID).close()
 		.then(function () {
-			//$log.debug("close navID is done");
 		});
 	};
 
@@ -165,7 +161,6 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 	var determinarStickPoint = function(thisCell, x, y){
 		var type = thisCell.get('type');
 		var pointStick;
-		//$log.debug("determinarStickPoint de "+type);
 
 		switch(type){
 			case 'basic.CicloConversacional':
@@ -181,8 +176,6 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 				
 				var ellipse2 = thisCell.get('attrs').ellipse;
 
-				//$log.debug("bbox x: "+bbox.x+", y: "+bbox.y+", w: "+bbox.width+", h: "+bbox.height);
-				//$log.debug("elli x: "+ellipse2.rx+", y: "+ellipse2.ry);
 				//var ellipse = g.ellipse(thisCell.get('position'), thisCell.get('size').width / 2, thisCell.get('size').height / 2);
 				pointStick = ellipse.intersectionWithLineFromCenterToPoint(g.point(x,y));
 				pointStick= g.point(pointStick.x - thisCell.get('position').x, pointStick.y - thisCell.get('position').y);
@@ -200,7 +193,6 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 				pointStick = g.point(pointStick.x - bboxThisCell.x, pointStick.y - bboxThisCell.y);				
 				break;
 		}
-		//$log.debug('line 188: pointStick: '+pointStick.x+", "+pointStick.y);
 		return pointStick;
 	}
 
@@ -208,27 +200,19 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 
 		pointerdown: function(evt, x, y){
 			dateCellPointerDown = new Date();
-			//$log.debug("dateCellPointerDown: "+dateCellPointerDown);					
-			
 			joint.dia.ElementView.prototype.pointerdown.apply(this, [evt, x, y]);
 		},
 		pointerup: function(evt, x, y){
 			dateCellPointerUp = new Date();			
-			//$log.debug("dateCellPointerUp: "+dateCellPointerUp);
-
-			
-
 			joint.dia.ElementView.prototype.pointerup.apply(this, [evt, x, y]);
 		},
 
 		// pointermove: function(evt, x, y){ 	
-		// 	////$log.debug('cellView.isLink():'+this.model.isLink());
 		// 	var links = graph.getConnectedLinks(this.model, {'inbound':true}); //solo aquellos en que la celda es Target
 			
 			
 
 		// 	if(links.length > 0){ //si la celda tiene enlaces entrantes
-		// 		//$log.debug("PM mueve celda con enlace entrante");
 		// 		var cc = links[links.length-1].getSourceElement(); //pregunta por el origen del enlace para luego limitar el movimiento
 		// 		var centerTarget = this.model.getBBox().center(); // toma la posición de este elemento (target del enlace)
 
@@ -250,11 +234,6 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 		// 			var centroCC = cc.getBBox().center(); //obtenemos el origen de este ciclo conversacional en el origen del enlace para usarlo como referencia en la limitación de movimiento
 		// 			var etapaOrigen = links[0].get('attrs').text.etapaOrigen; //obtenemos la etapa de origen 
 					
-		// 			// //$log.debug("etapaOrigen: "+etapaOrigen);
-		// 			// //$log.debug("BBoxCenterORIGEN ("+centroCC.x+", "+centroCC.y+")");
-		// 			// //$log.debug("BBoxCenterTARGET("+centerTarget.x+", "+centerTarget.y+")");
-		// 			// //$log.debug("try ("+puntoFinal.x+", "+puntoFinal.y+")");
-
 		// 			// switch(etapaOrigen){
 		// 			// 	case 'PETICION':
 		// 			// 		if(x >= centroCC.x ){
@@ -290,21 +269,16 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 		// 			// 		break;					
 		// 			// }
 
-		// 			//$log.debug("done ("+puntoFinal.x+", "+puntoFinal.y+")");
 					
 		// 			joint.dia.ElementView.prototype.pointermove.apply(this, [evt, puntoFinal.x, puntoFinal.y]);
 
-		// 		}else{
-		// 			//$log.debug("PM LINK NO TIENE SOURCE");
-					
+		// 		}else{					
 		// 			joint.dia.ElementView.prototype.pointermove.apply(this, [evt, x, y]);
 		// 		}
 		// 	}else{
-		// 		//$log.debug("PM mueve celda sin enlace entrante");
 		// 		var celda = graph.getCell(this.model.id);
 		// 		$scope.celda = celda;
 		// 		if(celda.isLink()){
-		// 			//$log.debug("PM mueve enlace");
 		// 		}
 		// 		joint.dia.ElementView.prototype.pointermove.apply(this, [evt, x, y]);
 		// 	}
@@ -440,7 +414,6 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 	}
 
 	var crearEnlace =  function(){
-		//$log.debug("creando enlace");
 		
 		var etapaOrigen = etapaCiclo(pointStickOrigen);
 		
@@ -468,7 +441,6 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 		graph.addCell(enlace);
 		//enlace.toBack();
 		if(validarEnlace(enlace)){
-			//$log.debug("enlace valido");
 			setearIdsNova(estacionOrigen);
 		}		
 		
@@ -481,7 +453,6 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 		enlace.on('change:source change:target',function(){
 			
 			if(enlace.get('source').port == null && enlace.get('source').x != null){
-				//$log.debug('source of the link changed, puerto desconectado');	
 				var celdaSource = graph.getCell(enlace.previous('source').id);
 				if(celdaSource && celdaSource.hasPort(enlace.previous('source').port)){
 					celdaSource.removePort(enlace.previous('source').port);
@@ -491,7 +462,6 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 			}
 
 			if(enlace.get('target').port == null && enlace.get('target').x != null){
-				//$log.debug('target of the link changed, puerto desconectado');	
 				var celdaTarget = graph.getCell(enlace.previous('target').id);
 				if(celdaTarget && celdaTarget.hasPort(enlace.previous('target').port)){
 					celdaTarget.removePort(enlace.previous('target').port);
@@ -503,7 +473,6 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 			}
 
 			if(enlace.get('source').port == null && enlace.get('source').id != null){
-				//$log.debug('source of the link changed, puerto reconectado');	
 				//volver a calcular punto más cercano al elemento, poner allí el puerto y setearlo al enlace,
 				//no olvidar setear etapa
 				//adicionalmente es necesario renombrar todos los idNova sucesores al origen y vecinos
@@ -522,7 +491,6 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 			}
 
 			if(enlace.get('target').port == null && enlace.get('target').id != null){
-				//$log.debug('target of the link changed, puerto reconectado');
 				var nuevoDestino = graph.getCell(enlace.get('target').id);
 				var pointStick = determinarStickPoint(nuevoDestino, enlace.previous('target').x, enlace.previous('target').y);
 				var idPortDestino = ''+enlace.get('target').id+'-'+Math.random();
@@ -541,15 +509,12 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 
 	$scope.exportarImagen = function(){
 		cancelarAccionEnCurso();
-		//$log.debug("No implementado");
 	}
 
 	$scope.agregarCicloConversacional = function(){
 		cancelarAccionEnCurso();
-		//$log.debug("new CC2");
 		btnAgregarCicloConversacional = true;
 		if(celdaViewPointerClick != null){
-			//$log.debug("agregarCicloConversacional, se apaga celda seleccionada");
 			//celdaViewPointerClick.unhighlight();
 			custumUnhighlight(celdaViewPointerClick);
 			celdaViewPointerClick = null;	
@@ -558,10 +523,8 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 
 	$scope.agregarEstacionAnd = function(){
 		cancelarAccionEnCurso();
-		//$log.debug("btn Estacion AND");
 		btnAgregarAnd = true;
 		if(celdaViewPointerClick != null){
-			//$log.debug("agregarEstacionAnd, se apaga celda seleccionada");
 			//celdaViewPointerClick.unhighlight();
 			custumUnhighlight(celdaViewPointerClick);
 			celdaViewPointerClick = null;	
@@ -570,10 +533,8 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 	
 	$scope.agregarEstacionOr = function(){
 		cancelarAccionEnCurso();
-		//$log.debug("btn Estacion AND");
 		btnAgregarOr = true;
 		if(celdaViewPointerClick != null){
-			//$log.debug("agregarEstacionOr, se apaga celda seleccionada");
 			//celdaViewPointerClick.unhighlight();
 			custumUnhighlight(celdaViewPointerClick);
 			celdaViewPointerClick = null;	
@@ -581,7 +542,6 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 	}
 
 	var crearEstacionAnd = function(x,y){
-		//$log.debug("Agregando estacion And");
 		var nuevoAND2 = new joint.shapes.basic.And({
 			position: { x: x, y: y },
 			size: { width: 25, height: 25},
@@ -595,7 +555,6 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 	}
 
 	var crearEstacionOr = function(x,y){
-		//$log.debug("Agregando estacion Or");
 		var rombo = new joint.shapes.basic.Or({
 			position: { x: x, y: y },
 			size: { width: 20, height: 20 },
@@ -613,8 +572,6 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 	}
 
 	var crearCicloConversacional = function(x,y){	
-		//$log.debug("Agregando Ciclo Conversacional ");
-
 		var nombre = 'ciclo_'+cantCiclosConversacionales;
 		
 		var idNova = '';
@@ -642,13 +599,11 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 
 	$scope.agregarEnlace = function(tipo){
 		cancelarAccionEnCurso();
-		//$log.debug("click on newLinkEP");
 		tipoEnlace = tipo;	
 		estacionOrigen = null;
 		estacionDestino = null;
 		btnAgregarEnlace = true;
 		if(celdaViewPointerClick != null){
-			//$log.debug("agregarEnlace, se apaga celda seleccionada");
 			//celdaViewPointerClick.unhighlight();
 			custumUnhighlight(celdaViewPointerClick);
 			celdaViewPointerClick = null;	
@@ -661,14 +616,12 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 		switch (valor){
 			case 'acercar':
 				zoom = zoom + 0.2;
-				//$log.debug("zoom Acercar");
 				break;
 			case 'restablecer':
 				zoom = zoom + 1;
 				break;
 			case 'alejar':
 				zoom = zoom - 0.2;
-				//$log.debug("zoom Alejar");
 				break;
 		}
 		paper.scale(zoom, zoom, 0, 0);
@@ -739,7 +692,6 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 		celdaViewPointerClick = null;
 	}
 	var cancelarAccionEnCurso = function(){
-		//$log.debug("candelar accion en curso");
 		btnAgregarEnlace = false;
 		btnAgregarCicloConversacional = false;
 		btnAgregarAnd = false;
@@ -788,8 +740,6 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 	
 	paper.on('cell:pointerdblclick ', function(cellView, evt, x, y) { 
 		//$scope.objeto = cellView;
-
-		//$log.debug('cell:pointerdblclick cellView.className-> '+cellView.className());
 		var type = cellView.className();
 		
 		switch(type){
@@ -827,15 +777,11 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 		$scope.objeto = cellView;	
 		$scope.objetoPosition = cellView.get('position');
 		$scope.objetoCenter = cellView.getBBox().center();
-		////$log.debug('change:position cell ->'+cellView.id + " x: " + cellView.get('position').x + " ,y: "+cellView.get('position').y );
-
 	})
 
 	paper.on('cell:pointerclick', function(cellView, evt, x, y) {
-		//$log.debug("cell:pointerClick className: "+cellView.className());		
 		if(cellView.className() != 'cell type-basic type-basic-ellipse element'){
 		if(celdaViewPointerClick != null){
-			//$log.debug(" apagar celda antes presionada");
 			//celdaViewPointerClick.unhighlight();	
 			custumUnhighlight(celdaViewPointerClick);
 		}
@@ -871,10 +817,8 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 	});
 
 	paper.on('cell:pointermove',function(cellView, evt, x, y){
-		//$log.debug("cell:pointermove");
 		if(cellView.className() != 'cell type-basic type-basic-ellipse element'){
 			if(celdaViewPointerClick != null){
-				//$log.debug(" apagar celda antes presionada.");
 				//celdaViewPointerClick.unhighlight();		
 				custumUnhighlight(celdaViewPointerClick);
 			}
@@ -895,7 +839,6 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 	paper.on('cell:mouseover', function(cellView, evt){
 		if(cellView.className() != 'cell type-basic type-basic-ellipse element'){
 		if(btnAgregarEnlace && graph.getCell(cellView.model.id).isElement()){
-			//$log.debug("mouseOver Agregando Enlace");
 			//cellView.highlight();
 			custumHighlight(cellView);
 		}
@@ -905,7 +848,6 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 	paper.on('cell:mouseout',function(cellView, evt){
 		if(cellView.className() != 'cell type-basic type-basic-ellipse element'){
 			if(btnAgregarEnlace && graph.getCell(cellView.model.id).isElement()){
-				//$log.debug("mouseOut Agregando Enlace");
 				//cellView.unhighlight();
 				custumUnhighlight(cellView);
 			}
@@ -913,9 +855,7 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 	})
 
 	paper.on('blank:pointerclick', function(evt, x, y){
-		//$log.debug("blank:pointerClick");
 		if(celdaViewPointerClick != null){
-			//$log.debug("blank: apagar celda antes presionada");
 			//celdaViewPointerClick.unhighlight();
 			custumUnhighlight(celdaViewPointerClick);
 			celdaViewPointerClick = null;	
@@ -932,13 +872,10 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 	})
 
 	graph.on('add', function(cell) { 
-		////$log.debug("celda agregada, activar su highlight");
 		var cellView = paper.findViewByModel(cell);
-		//$log.debug("celda agregada, activar su highlight, cellView-> "+cellView.className());
 		if(cellView.className() != 'cell type-basic type-basic-ellipse element'){
 			
 	    	if(celdaViewPointerClick != null){
-				//$log.debug("add: apagar celda antes presionada");
 				//celdaViewPointerClick.unhighlight();
 				custumUnhighlight(celdaViewPointerClick);
 			}
@@ -954,14 +891,12 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 	var addCircleBlue = function(cellView){
 		var element = graph.getCell(cellView.model.id);
 		var position = g.rect(element.get('position').x-element.get('size').width/2, element.get('position').y-element.get('size').height/2, element.get('size').width, element.get('size').height).topRight();
-		//$log.debug("position-> "+position);
 		var circulo = new joint.shapes.basic.Ellipse({
 			position: { x: position.x, y: position.y },
         	size: { width: 5, height: 5 },
         	attrs: { ellipse: { fill: 'blue', stroke: 'blue' }}	
 		})
 		graph.addCell(circulo);
-    	//$log.debug("circulo agregado");
     	element.embed(circulo);
     	celdaViewPointerClick = cellView;
     }
@@ -971,9 +906,7 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 		var circulo = element.getEmbeddedCells();
 		if(circulo[0]){
 			element.unembed(circulo[0]);
-	    	//$log.debug("circulo desembebido");
 	    	circulo[0].remove();
-	    	//$log.debug("circulo removido");	
 		}		
     	celdaViewPointerClick = cellView;
     }
@@ -1098,25 +1031,20 @@ angular.module('dibujo', ['ngRoute', 'ui.router','ngMaterial', 'md.data.table', 
 
 
 	paper.on('cell:contextmenu', function(cellView, evt, x, y) { 
-		//$log.debug('cell:contextmenu cellView.id-> '+cellView.id);	   
 
 		var type = cellView.className();
 
-		//$log.debug('cell:contextmenu cellView.type-> '+type);
 		
 		switch(type){
 			case 'element basic Rect': 	     		
-				//$log.debug("switch contextmenu=Rect");
 				//cmcc(cellView, x,y);
 				//alert("switch contextmenu=Rect");
 				RightClickMenuCtrlCC.open(evt);
 				break;
 			case 'link':
-				//$log.debug("switch contextmenu=link");
 				RightClickMenuCtrl.open(evt);
 				break;
 			case 'cell type-basic type-basic-cicloconversacional element': 	     		
-				//$log.debug("switch contextmenu=CC -> "+evt.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName);
 				RightClickMenuCtrlCC.open(evt);
 				//$scope.$emit('ctxmnCC', evt);
 				//alert("switch contextmenu=Image");
