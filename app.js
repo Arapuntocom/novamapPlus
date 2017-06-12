@@ -15,11 +15,6 @@ angular.module('myApp', [
   $urlRouterProvider.otherwise("/");
   $stateProvider
 
-/*  .state('inicio', {
-    url: '/',
-    templateUrl: 'view/add.html' 
-  })*/
-
   .state('inicio', {
     url: '/',
     templateUrl: 'view/dibujo.html',
